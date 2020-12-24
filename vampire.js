@@ -50,9 +50,66 @@ class Vampire {
   // * when comparing Ansel and Sarah, Ansel is the closest common anscestor.
   // * when comparing Ansel and Andrew, Ansel is the closest common anscestor.
   closestCommonAncestor(vampire) {
-    // console.log("vampire.creator = ", vampire.creator)
+
+    // console.log("RESULT this.creator = ", this.creator.name)
+    console.log("RESULT this = ", this.name)
+    // console.log('this.numberOfVampiresFromOriginal: ', this.numberOfVampiresFromOriginal);
+    // console.log("RESULT vampire.creator = ", vampire.creator.name)
+    console.log("RESULT vampire = ", vampire.name)
+    // console.log('vampire.numberOfVampiresFromOriginal: ', vampire.numberOfVampiresFromOriginal);
+
+
+    if (this.creator.name === vampire.creator.name) {
+      // console.log("RESULT this.creator = ", this.creator.name)
+      // console.log("RESULT vampire.creator = ", vampire.creator.name)
+      if (this.name === vampire.name) {
+        return vampire;
+      }
+      return vampire.creator;
+    }
+// console.log(this.isMoreSeniorThan(vampire))
+    if (this.isMoreSeniorThan(vampire)) {
+      let currentVampire = vampire.creator;
+      // console.log('currentVampire: ', currentVampire.creator.name)
+      // console.log('this.creator.name: ', this.creator.name)
+      while (currentVampire.creator.name !== this.creator.name) {
+      //   console.log('currentVampire.creator.name = ', currentVampire.creator.name)
+        currentVampire = vampire.creator;
+        console.log('currentVampire.creator.name = ', currentVampire.creator.name)
+      }
+      
+      return currentVampire.creator.name;
+    } 
+    // else {
+    //   let currentVampire = this;
+    //   while (currentVampire.creator.name !== this.creator.name) {
+    //     currentVampire = this.creator;
+    //   }
+    //   return currentVampire.creator.name;
+    // }
+
+
+
+
+
+
+    // // call isMoreSeniorThan() to check who is more senior between this and the vampire
+    // if (isMoreSeniorThan(vampire)) {
+    //   let currentVampire = vampire;
+    //   while (currentVampire.creator.name !== this.creator.name) {
+    //     currentVampire = vampire.creator;
+    //   }
+    //   return currentVampire.creator.name;
+    // } else {
+    //   let currentVampire = this;
+    //   while (currentVampire.creator.name !== this.creator.name) {
+    //     currentVampire = this.creator;
+    //   }
+    //   return currentVampire.creator.name;
+    // }
   }
 }
+
 
 module.exports = Vampire;
 
