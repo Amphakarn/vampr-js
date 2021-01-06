@@ -41,6 +41,7 @@ class Vampire {
       return false;
     }
   }
+  
 
   /** Tree traversal methods **/
 
@@ -73,7 +74,7 @@ class Vampire {
       totalDesc += vampyr.totalDescendents + 1;
     }
     return totalDesc;
-  };
+  }
 
 
   // Returns an array of all the vampires that were converted after 1980
