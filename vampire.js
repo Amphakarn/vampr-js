@@ -46,87 +46,47 @@ class Vampire {
 
   // Returns the vampire object with that name, or null if no vampire exists with that name
   vampireWithName(name) {
-    
+    let vamp = new Vampire("null", 666);
+    if (this.name === name) {
+      vamp = this;
+      //return vamp;
+    } else {
+      for (let i = 0; i < this.offspring.length; i++) {
+        vamp = this.offspring[i].vampireWithName(name);
+        if (vamp !== null && vamp.name === name) {
+          break;
+        }
+      }
+    }
+    if (vamp === null || vamp.name === "null") {
+      return null;
+    } else {
+      return vamp;
+    }
   }
+
 
   // Returns the total number of vampires that exist
   get totalDescendents() {
-    
-  }
+    let totalDesc = 0;
+    for (let vampyr of this.offspring) {
+      totalDesc += vampyr.totalDescendents + 1;
+    }
+    return totalDesc;
+  };
+
 
   // Returns an array of all the vampires that were converted after 1980
   get allMillennialVampires() {
-    
-  }
-
-  /** Stretch **/
-
-  // Returns the closest common ancestor of two vampires.
-  // The closest common anscestor should be the more senior vampire if a direct ancestor is used.
-  // For example:
-  // * when comparing Ansel and Sarah, Ansel is the closest common anscestor.
-  // * when comparing Ansel and Andrew, Ansel is the closest common anscestor.
-  closestCommonAncestor(vampire) {
-
-    // console.log("RESULT this.creator = ", this.creator.name)
-    console.log("RESULT this = ", this.name)
-    // console.log('this.numberOfVampiresFromOriginal: ', this.numberOfVampiresFromOriginal);
-    // console.log("RESULT vampire.creator = ", vampire.creator.name)
-    console.log("RESULT vampire = ", vampire.name)
-    // console.log('vampire.numberOfVampiresFromOriginal: ', vampire.numberOfVampiresFromOriginal);
-
-
-    if (this.creator.name === vampire.creator.name) {
-      // console.log("RESULT this.creator = ", this.creator.name)
-      // console.log("RESULT vampire.creator = ", vampire.creator.name)
-      if (this.name === vampire.name) {
-        return vampire;
-      }
-      return vampire.creator;
+    let millennialVampArr = [];
+    if (this.yearConverted > 1980) {
+      millennialVampArr.push(this);
     }
-// console.log(this.isMoreSeniorThan(vampire))
-    if (this.isMoreSeniorThan(vampire)) {
-      let currentVampire = vampire.creator;
-      // console.log('currentVampire: ', currentVampire.creator.name)
-      // console.log('this.creator.name: ', this.creator.name)
-      while (currentVampire.creator.name !== this.creator.name) {
-      //   console.log('currentVampire.creator.name = ', currentVampire.creator.name)
-        currentVampire = vampire.creator;
-        console.log('currentVampire.creator.name = ', currentVampire.creator.name)
-      }
-      
-      return currentVampire.creator.name;
-    } 
-    // else {
-    //   let currentVampire = this;
-    //   while (currentVampire.creator.name !== this.creator.name) {
-    //     currentVampire = this.creator;
-    //   }
-    //   return currentVampire.creator.name;
-    // }
-
-
-
-
-
-
-    // // call isMoreSeniorThan() to check who is more senior between this and the vampire
-    // if (isMoreSeniorThan(vampire)) {
-    //   let currentVampire = vampire;
-    //   while (currentVampire.creator.name !== this.creator.name) {
-    //     currentVampire = vampire.creator;
-    //   }
-    //   return currentVampire.creator.name;
-    // } else {
-    //   let currentVampire = this;
-    //   while (currentVampire.creator.name !== this.creator.name) {
-    //     currentVampire = this.creator;
-    //   }
-    //   return currentVampire.creator.name;
-    // }
+    for (let vampyr of this.offspring) {
+      millennialVampArr = millennialVampArr.concat(vampyr.allMillennialVampires);
+    }
+    return millennialVampArr;
   }
 }
 
-
 module.exports = Vampire;
-
